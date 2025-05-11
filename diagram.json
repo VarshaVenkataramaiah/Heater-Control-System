@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "author": "Nicolas Bamamou",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -18.9,
+      "left": 234.6,
+      "attrs": { "temperature": "80", "humidity": "0" }
+    },
+    {
+      "type": "wokwi-rgb-led",
+      "id": "rgb1",
+      "top": -15.2,
+      "left": 154.7,
+      "attrs": { "common": "cathode" }
+    },
+    { "type": "wokwi-slide-switch", "id": "sw1", "top": -14.8, "left": 339.1, "attrs": {} },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay1",
+      "top": 12.6,
+      "left": -140.4,
+      "rotate": 270,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": -7.2,
+      "left": -199.8,
+      "attrs": { "volume": "0.1" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -80.4,
+      "left": -111.4,
+      "attrs": { "color": "red" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "dht1:SDA", "esp:D4", "green", [ "v0" ] ],
+    [ "dht1:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "rgb1:COM", "esp:GND.1", "black", [ "v0" ] ],
+    [ "esp:D5", "rgb1:R", "red", [ "h0" ] ],
+    [ "rgb1:G", "esp:D18", "green", [ "v0" ] ],
+    [ "rgb1:B", "esp:D19", "blue", [ "v0" ] ],
+    [ "sw1:2", "esp:3V3", "red", [ "v0" ] ],
+    [ "esp:D2", "sw1:1", "green", [ "h0" ] ],
+    [ "relay1:IN", "esp:D14", "green", [ "v0" ] ],
+    [ "relay1:GND", "esp:GND.2", "black", [ "v0" ] ],
+    [ "relay1:VCC", "esp:VIN", "red", [ "v0" ] ],
+    [ "relay1:VCC", "relay1:COM", "red", [ "h-28.8", "v-105.6", "h39.8" ] ],
+    [ "relay1:NC", "led1:A", "red", [ "v0" ] ],
+    [ "relay1:GND", "led1:C", "black", [ "v9.6", "h-48.4", "v-153.6" ] ],
+    [ "bz1:1", "esp:GND.2", "black", [ "v0" ] ],
+    [ "bz1:2", "esp:D12", "green", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
